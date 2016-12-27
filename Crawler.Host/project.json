@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
+    },
+    "Crawler.Core": {        
+      "target":"project"
+    }
+  },
+
+  "frameworks": {
+    "netcoreapp1.1": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "tooling": {
+    "defaultNamespace": "Crawler.Host"
+  }
+}
