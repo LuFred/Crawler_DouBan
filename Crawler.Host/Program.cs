@@ -1,23 +1,31 @@
-using System;
+﻿using System;
 using Crawler.Core;
+using System.Text;
+using System.Net.Http;
+
 namespace Crawler.Host
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-              
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+
+           
+
             ttt();
-            Console.WriteLine("OK");
             Console.ReadLine();
         }
 
         public static void ttt()
         {
-        Console.WriteLine("tttttt");
-    var host = new Client();
-     var   r=    host.SearchSubject("热门", 0, 20).Result;
+           
+            var host = new Client();
+            //var r=host.SearchSubject("热门", 0, 20).Result;
+            host.GetDouBanMovieAllTags("https://movie.douban.com/tag/");
         }
 
+       
     }
 }
