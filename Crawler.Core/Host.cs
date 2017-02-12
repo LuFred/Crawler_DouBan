@@ -8,6 +8,7 @@ using System.Linq;
 using AngleSharp.Parser.Html;
 using AngleSharp.Dom.Html;
 using System.Net;
+using System.Collections.Generic;
 
 namespace Crawler.Core
 {
@@ -35,18 +36,49 @@ namespace Crawler.Core
 
         }
 
-        public void GetDouBanMovieAllTags(string url) {
+        public List<MovieTagModel> GetDouBanMovieAllTags(string url) {
             var config = Configuration.Default.WithDefaultLoader();          
             var document =BrowsingContext.New(config).OpenAsync(url).Result;
             var cellSelector = ".tagCol tr td a";
             var cells = document.QuerySelectorAll(cellSelector);
+            List<MovieTagModel> movieTagModelList=new List<MovieTagModel>();
             foreach (var item in cells)
             {
                 var anchorElement = (IHtmlAnchorElement)item;
-                Console.WriteLine(anchorElement.InnerHtml+" : "+ document.BaseUrl.Origin+WebUtility.UrlDecode(anchorElement.PathName));
-            }
+                movieTagModelList.Add(new MovieTagModel(){
+                    TagName=anchorElement.InnerHtml,
+                    Url= document.BaseUrl.Origin+WebUtility.UrlDecode(anchorElement.PathName)
+                });
+          }
+          return movieTagModelList;
+        
         }
+        public  List<MovieInfoModel> GetMovieInfo(string url,out string nextUrl){
+            Console.WriteLine("url="+url);
+            var htmlContent=GetHtml(url);
+            var document=new HtmlParser().Parse(htmlContent);
+            var movieListSelector=".article .item .nbg";
+            var movieListCells=document.QuerySelectorAll(movieListSelector);
+        Console.WriteLine("ct="+movieListCells.Count());
+            List<MovieInfoModel> movieInfoModelList=new List<MovieInfoModel>();
+             foreach (var item in movieListCells)
+            {
+                var anchorElement = (IHtmlAnchorElement)item;
+                movieInfoModelList.Add(new MovieInfoModel(){
+                    MovieName=anchorElement.Title,
+                    MovieDetailUrl= WebUtility.UrlDecode(anchorElement.Href)
+                });
+                Console.WriteLine("name="+anchorElement.Title+";  url="+WebUtility.UrlDecode(anchorElement.Href));
+          }
+          var nextPageUrlSelector=".article .paginator .next a";
+        var nextLinkDom=  document.QuerySelectorAll(nextPageUrlSelector).LastOrDefault();
+            Console.WriteLine((IHtmlAnchorElement)nextLinkDom);
+          nextUrl=nextLinkDom!=null?((IHtmlAnchorElement)nextLinkDom).Href:"";
+          Console.WriteLine("next page="+nextUrl);
+          return movieInfoModelList;
+        
 
+        }
 
         private string GetHtml(string url)
         {            
