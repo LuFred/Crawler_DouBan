@@ -24,8 +24,8 @@ namespace Crawler.Host
         public static void ttt()
         {
             Console.WriteLine("begin create topic");
-            ProduceHelper produceHelper = new ProduceHelper("http://nosrc.com:2181");
-            produceHelper.PushMessage("科幻", "nihaoma ");
+            ProduceHelper produceHelper = new ProduceHelper("localhost:9092");
+            produceHelper.PushMessage("test", "nihaoma ");
             //var host = new Client();
             //List<MovieTagModel> movieTagModelList = host.GetDouBanMovieAllTags("https://movie.douban.com/tag/");
             //foreach (var t in movieTagModelList)
