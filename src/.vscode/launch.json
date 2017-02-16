@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/ip_core/bin/Debug/netcoreapp1.1/ip_core.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/ip_core",
+            "stopAtEntry": false,
+            "externalConsole": false
+        }
+       
+    ]
+}

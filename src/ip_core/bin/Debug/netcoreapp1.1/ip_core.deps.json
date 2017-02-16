@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v1.1",
+    "signature": "08e617174323ae36cf3932a7a5eb6b769eae0eb3"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v1.1": {
+      "ip_core/1.0.0": {
+        "dependencies": {
+          "AngleSharp": "0.9.9"
+        },
+        "runtime": {
+          "ip_core.dll": {}
+        }
+      },
+      "AngleSharp/0.9.9": {
+        "runtime": {
+          "lib/netstandard1.0/AngleSharp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ip_core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AngleSharp/0.9.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z3h0p8u7p7QFSStWaC+u9cx7+IaRvMmLXqczx5WYW5V9t58kGQg3xMyb4iRI2mIEnePQq2pp2sQAadEl4GhmBg=="
+    }
+  }
+}
