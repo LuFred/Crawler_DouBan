@@ -7,8 +7,8 @@
 -debug:portable
 -nostdlib
 -nologo
-"e:\Git\Crawler_DouBan\src\ip_core\obj\Debug\netcoreapp1.1\dotnet-compile.assemblyinfo.cs"
--out:"e:\Git\Crawler_DouBan\src\ip_core\bin\Debug\netcoreapp1.1\ip_core.dll"
+"E:\Git\Crawler_DouBan\src\ip_core\obj\Debug\netcoreapp1.1\dotnet-compile.assemblyinfo.cs"
+-out:"E:\Git\Crawler_DouBan\src\ip_core\bin\Debug\netcoreapp1.1\ip_core.dll"
 -r:"C:\Users\fred.lu\.nuget\packages\AngleSharp\0.9.9\lib\netstandard1.0\AngleSharp.dll"
 -r:"C:\Users\fred.lu\.nuget\packages\Microsoft.CSharp\4.3.0\ref\netstandard1.0\Microsoft.CSharp.dll"
 -r:"C:\Users\fred.lu\.nuget\packages\Microsoft.VisualBasic\10.1.0\ref\netstandard1.1\Microsoft.VisualBasic.dll"
@@ -83,4 +83,4 @@
 -r:"C:\Users\fred.lu\.nuget\packages\System.Threading.Timer\4.3.0\ref\netstandard1.2\System.Threading.Timer.dll"
 -r:"C:\Users\fred.lu\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\fred.lu\.nuget\packages\System.Xml.XDocument\4.3.0\ref\netstandard1.3\System.Xml.XDocument.dll"
-"e:\Git\Crawler_DouBan\src\ip_core\Program.cs"
+"E:\Git\Crawler_DouBan\src\ip_core\Program.cs"

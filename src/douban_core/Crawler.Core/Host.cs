@@ -9,15 +9,18 @@ using AngleSharp.Parser.Html;
 using AngleSharp.Dom.Html;
 using System.Net;
 using System.Collections.Generic;
+using Crawler.Core.Common;
 
 namespace Crawler.Core
 {
     public class Client
     {
         private HttpClient _httpClient;
+        private string ipListFile = @"..\..\ip_file";
         public Client() {
-            _httpClient = new HttpClient();
+            _httpClient = GetHttpClient(true);
         }
+
         public async Task<SearchSubjectModelList>  SearchSubject(string tag, int start, int limit)
         {
             var baseAddress = "https://movie.douban.com/j/search_subjects";
@@ -83,7 +86,28 @@ namespace Crawler.Core
         private string GetHtml(string url)
         {            
            var httpResponseMessage=_httpClient.GetAsync(url).Result;
+            if (!httpResponseMessage.StatusCode.Equals(HttpStatusCode.OK))
+            {
+               
+            }
            return httpResponseMessage.Content.ReadAsStringAsync().Result;
         }
+        private HttpClient GetHttpClient(bool useProxy=false)
+        {
+           var ipstring = FSHelper.Read(ipListFile);
+            string[] ipList = ipstring.Split('\n');
+            HttpClientHandler config=null;
+            if (useProxy)
+            {
+                config = new HttpClientHandler
+                {
+                    UseProxy = true,
+                    Proxy = new CProxy(ipList[0].Split(':')[0], Convert.ToInt32(ipList[0].Split(':')[1]))
+                };
+            }
+            var httpClient = (config == null ? new HttpClient(): new HttpClient(config));
+            return httpClient;
+        }
+
     }
 }

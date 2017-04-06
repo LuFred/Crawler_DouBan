@@ -15,9 +15,12 @@ namespace ConsoleApplication
             string ipListFile=@"..\ip_file";
             string currentUrl="";
            _httpClient=new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36");
-          
-          for(int i=0;i<PAGE_INDEX_LIST.Length;i++){
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36");         
+            _httpClient.DefaultRequestHeaders.Add("Cookie", "_ydclearance=70bd563ca06f5b3babf59e95-e031-40f0-88f1-e2a9d5283997-1491479694");
+           // _httpClient.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+
+
+            for (int i=0;i<PAGE_INDEX_LIST.Length;i++){
             currentUrl=string.Format(PROXY_SITE_URL,PAGE_INDEX_LIST[i]);
            string[] ipList= GetIP(currentUrl);
            WriteFile(ipListFile,ipList);
