@@ -56,35 +56,17 @@ namespace Crawler.Core
           return movieTagModelList;
         
         }
-        public  List<MovieInfoModel> GetMovieInfo(string url,out string nextUrl){
+
+        public  List<MovieInfoModel> GetMovieIntroList(string type,string url,out string nextUrl){
             Console.WriteLine("url="+url);
             var htmlContent=GetHtml(url);
-            var document=new HtmlParser().Parse(htmlContent);
-            var movieListSelector=".article .item .nbg";
-            var movieListCells=document.QuerySelectorAll(movieListSelector);
-        Console.WriteLine("ct="+movieListCells.Count());
-            List<MovieInfoModel> movieInfoModelList=new List<MovieInfoModel>();
-             foreach (var item in movieListCells)
-            {
-                var anchorElement = (IHtmlAnchorElement)item;
-                movieInfoModelList.Add(new MovieInfoModel(){
-                    MovieName=anchorElement.Title,
-                    MovieDetailUrl= WebUtility.UrlDecode(anchorElement.Href)
-                });
-                Console.WriteLine("name="+anchorElement.Title+";  url="+WebUtility.UrlDecode(anchorElement.Href));
-          }
-          var nextPageUrlSelector=".article .paginator .next a";
-        var nextLinkDom=  document.QuerySelectorAll(nextPageUrlSelector).LastOrDefault();
-            Console.WriteLine((IHtmlAnchorElement)nextLinkDom);
-          nextUrl=nextLinkDom!=null?((IHtmlAnchorElement)nextLinkDom).Href:"";
-          Console.WriteLine("next page="+nextUrl);
-          return movieInfoModelList;
-        
-
+            return DouBanAnalyze.MovieListAnalyze(type,htmlContent, out nextUrl);       
         }
+       
 
         private string GetHtml(string url)
-        {            
+        {
+            
            var httpResponseMessage=_httpClient.GetAsync(url).Result;
             if (!httpResponseMessage.StatusCode.Equals(HttpStatusCode.OK))
             {
@@ -92,6 +74,7 @@ namespace Crawler.Core
             }
            return httpResponseMessage.Content.ReadAsStringAsync().Result;
         }
+
         private HttpClient GetHttpClient(bool useProxy=false)
         {
            var ipstring = FSHelper.Read(ipListFile);
@@ -102,7 +85,7 @@ namespace Crawler.Core
                 config = new HttpClientHandler
                 {
                     UseProxy = true,
-                    Proxy = new CProxy(ipList[0].Split(':')[0], Convert.ToInt32(ipList[0].Split(':')[1]))
+                    Proxy = new CProxy("https://27.159.126.93", 8118)
                 };
             }
             var httpClient = (config == null ? new HttpClient(): new HttpClient(config));
