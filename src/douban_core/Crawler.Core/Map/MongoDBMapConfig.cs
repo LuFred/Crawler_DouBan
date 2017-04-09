@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace Crawler.Host.App_Start
+namespace Crawler.Core.Map
 {
     public class MongoDBMapConfig
     {

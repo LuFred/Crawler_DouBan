@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Crawler.Host.Components.Mongodb
+namespace Crawler.Core.Common.Mongodb
 {
     public class MongdbHelper
     {

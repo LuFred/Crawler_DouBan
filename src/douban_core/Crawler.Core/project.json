@@ -4,8 +4,9 @@
     "AngleSharp": "0.9.9",
     //"Hangfire.Core": "1.6.7",
     //"HangFire.Mongo": "0.3.2",
-  
     "MongoDB.Driver.Core": "2.3.0",
+    "MongoDB.Driver": "2.3.0",
+    "MongoDB.Bson": "2.3.0",
     "NETStandard.Library": "1.6.1",
     "Newtonsoft.Json": "9.0.1",
     "System.IO": "4.3.0",

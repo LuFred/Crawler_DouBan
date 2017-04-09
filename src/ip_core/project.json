@@ -5,8 +5,11 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "AngleSharp":"0.9.9"
-    
+    "AngleSharp": "0.9.9",
+    "Crawler.Core": {
+      "target": "project"
+    },
+    "System.Text.Encoding.CodePages": "4.3.0"
   },
   "frameworks": {
     "netcoreapp1.1": {

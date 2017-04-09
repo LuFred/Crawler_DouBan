@@ -15,10 +15,11 @@ namespace Crawler.Core
 {
     public class Client
     {
+        public static long getCount { get; set; }
         private HttpClient _httpClient;
         private string ipListFile = @"..\..\ip_file";
         public Client() {
-            _httpClient = GetHttpClient(true);
+            _httpClient = GetHttpClient(false);
         }
 
         public async Task<SearchSubjectModelList>  SearchSubject(string tag, int start, int limit)
@@ -54,9 +55,9 @@ namespace Crawler.Core
                 });
           }
           return movieTagModelList;
-        
-        }
 
+        }
+    
         public  List<MovieInfoModel> GetMovieIntroList(string type,string url,out string nextUrl){
             Console.WriteLine("url="+url);
             var htmlContent=GetHtml(url);
@@ -70,8 +71,10 @@ namespace Crawler.Core
            var httpResponseMessage=_httpClient.GetAsync(url).Result;
             if (!httpResponseMessage.StatusCode.Equals(HttpStatusCode.OK))
             {
-               
+                throw new HttpRequestException($"httpStatusCode:{httpResponseMessage.StatusCode}");
             }
+            getCount += 1;
+            Console.WriteLine($"请求发起总次数：{getCount}");
            return httpResponseMessage.Content.ReadAsStringAsync().Result;
         }
 
