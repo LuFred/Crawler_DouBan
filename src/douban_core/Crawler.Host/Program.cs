@@ -1,9 +1,9 @@
 ﻿using System;
 using Crawler.Core;
 using System.Text;
-using System.Net.Http;
 using System.Collections.Generic;
 using Crawler.Core.Model;
+<<<<<<< Updated upstream
 using Crawler.Host.Components.Kafka;
 using System.Threading;
 using MongoDB.Driver;
@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using Crawler.Core.Common;
 using System.Net;
 using Crawler.Core.Common.Mongodb;
+=======
+>>>>>>> Stashed changes
 
 namespace Crawler.Host
 {
@@ -65,6 +67,7 @@ namespace Crawler.Host
                 }
                 try
                 {
+<<<<<<< Updated upstream
                     Console.WriteLine($"当前请求地址：{nextPageUrl}");
                     var introList = CoreClient.GetMovieIntroList(tagModel.TagName, nextPageUrl, out nextPageUrl);
                     if (introList != null && introList.Count > 0)
@@ -75,6 +78,10 @@ namespace Crawler.Host
                             ProcessModel.SaveMovieInfo(introModel);
                         }
                     }
+=======
+                    var list = host.GetMovieInfo(nextPageUrl, out nextPageUrl);
+                     infoList.AddRange(list);
+>>>>>>> Stashed changes
                 }
                 catch (Exception e)
                 {

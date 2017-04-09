@@ -10,6 +10,7 @@ using AngleSharp.Dom.Html;
 using System.Net;
 using System.Collections.Generic;
 using Crawler.Core.Common;
+using System.IO;
 
 namespace Crawler.Core
 {
@@ -17,7 +18,9 @@ namespace Crawler.Core
     {
         public static long getCount { get; set; }
         private HttpClient _httpClient;
-        private string ipListFile = @"..\..\ip_file";
+      //  private string ipListFile = @"/src/ip_file";
+      private string ipListFile=@"/Users/lujiangbo/Documents/Git/Crawler_DouB"+
+"an/src/ip_file";
         public Client() {
             _httpClient = GetHttpClient(false);
         }
@@ -41,8 +44,10 @@ namespace Crawler.Core
         }
 
         public List<MovieTagModel> GetDouBanMovieAllTags(string url) {
-            var config = Configuration.Default.WithDefaultLoader();          
-            var document =BrowsingContext.New(config).OpenAsync(url).Result;
+           // var config = Configuration.Default.WithDefaultLoader();          
+           // var document =BrowsingContext.New(config).OpenAsync(url).Result;
+              var htmlContent=GetHtml(url);
+            var document=new HtmlParser().Parse(htmlContent);
             var cellSelector = ".tagCol tr td a";
             var cells = document.QuerySelectorAll(cellSelector);
             List<MovieTagModel> movieTagModelList=new List<MovieTagModel>();
@@ -66,9 +71,15 @@ namespace Crawler.Core
        
 
         private string GetHtml(string url)
+<<<<<<< Updated upstream
         {
             
+=======
+        {            
+            var ttt=_httpClient.GetAsync(url).Result;;
+>>>>>>> Stashed changes
            var httpResponseMessage=_httpClient.GetAsync(url).Result;
+           int x=12;
             if (!httpResponseMessage.StatusCode.Equals(HttpStatusCode.OK))
             {
                 throw new HttpRequestException($"httpStatusCode:{httpResponseMessage.StatusCode}");
@@ -80,6 +91,7 @@ namespace Crawler.Core
 
         private HttpClient GetHttpClient(bool useProxy=false)
         {
+       string currentDirectory= Directory.GetCurrentDirectory();
            var ipstring = FSHelper.Read(ipListFile);
             string[] ipList = ipstring.Split('\n');
             HttpClientHandler config=null;
@@ -88,7 +100,11 @@ namespace Crawler.Core
                 config = new HttpClientHandler
                 {
                     UseProxy = true,
+<<<<<<< Updated upstream
                     Proxy = new CProxy("https://27.159.126.93", 8118)
+=======
+                    Proxy = new CProxy(ipList[10].Split(':')[0], Convert.ToInt32(ipList[10].Split(':')[1]))
+>>>>>>> Stashed changes
                 };
             }
             var httpClient = (config == null ? new HttpClient(): new HttpClient(config));
