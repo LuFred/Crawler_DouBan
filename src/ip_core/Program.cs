@@ -26,8 +26,9 @@ namespace ConsoleApplication
 
             string currentUrl = "";
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36");
-            _httpClient.DefaultRequestHeaders.Add("Cookie", "_ydclearance=311f84336ad3ec3ffb7c0420-6fa7-474a-baf9-8a02bee56f37-1491725924");
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36");
+            _httpClient.DefaultRequestHeaders.Add("Cookie", "_ydclearance=4859e83632bb2507c4346158-a817-45a5-ba38-b475fcf9afa3-1491750881");
+            _httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
 
             for (int i =1; i <= 30; i++)
             {
@@ -96,7 +97,7 @@ namespace ConsoleApplication
 
             };
             var _httpClient = new HttpClient(config);
-            _httpClient.Timeout = TimeSpan.FromMilliseconds(20000);
+            _httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
             int i = 0;
             while (i<3)
             {

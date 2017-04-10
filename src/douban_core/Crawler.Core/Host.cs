@@ -56,7 +56,7 @@ namespace Crawler.Core
                 var anchorElement = (IHtmlAnchorElement)item;
                 movieTagModelList.Add(new MovieTagModel(){
                     TagName=anchorElement.InnerHtml,
-                    Url= document.BaseUrl.Origin+WebUtility.UrlDecode(anchorElement.PathName)
+                    Url= WebUtility.UrlDecode(anchorElement.PathName)
                 });
           }
           return movieTagModelList;
@@ -71,21 +71,16 @@ namespace Crawler.Core
        
 
         private string GetHtml(string url)
-<<<<<<< Updated upstream
-        {
-            
-=======
-        {            
-            var ttt=_httpClient.GetAsync(url).Result;;
->>>>>>> Stashed changes
+        {          
+
            var httpResponseMessage=_httpClient.GetAsync(url).Result;
-           int x=12;
+           
             if (!httpResponseMessage.StatusCode.Equals(HttpStatusCode.OK))
             {
                 throw new HttpRequestException($"httpStatusCode:{httpResponseMessage.StatusCode}");
             }
             getCount += 1;
-            Console.WriteLine($"请求发起总次数：{getCount}");
+            Console.WriteLine($"璇锋眰鎬绘暟{getCount}");
            return httpResponseMessage.Content.ReadAsStringAsync().Result;
         }
 
@@ -100,11 +95,7 @@ namespace Crawler.Core
                 config = new HttpClientHandler
                 {
                     UseProxy = true,
-<<<<<<< Updated upstream
                     Proxy = new CProxy("https://27.159.126.93", 8118)
-=======
-                    Proxy = new CProxy(ipList[10].Split(':')[0], Convert.ToInt32(ipList[10].Split(':')[1]))
->>>>>>> Stashed changes
                 };
             }
             var httpClient = (config == null ? new HttpClient(): new HttpClient(config));

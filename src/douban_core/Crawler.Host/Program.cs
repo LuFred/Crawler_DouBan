@@ -3,26 +3,18 @@ using Crawler.Core;
 using System.Text;
 using System.Collections.Generic;
 using Crawler.Core.Model;
-<<<<<<< Updated upstream
-using Crawler.Host.Components.Kafka;
 using System.Threading;
-using MongoDB.Driver;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-
-using Crawler.Host.App_Start;
-using Newtonsoft.Json;
 using Crawler.Core.Common;
 using System.Net;
-using Crawler.Core.Common.Mongodb;
-=======
->>>>>>> Stashed changes
+using System.Net.Http;
+
 
 namespace Crawler.Host
 {
     public class Program
     {
         private const string DOUBAN_MOVIE_TAGS_URL = "https://movie.douban.com/tag/";
+        private const string DOUBAN_MOVIE_DOMAIN_URL = "https://movie.douban.com";
         private static Client CoreClient = new Client();
 
         public static void Main(string[] args)
@@ -36,14 +28,18 @@ namespace Crawler.Host
 
         public static void start()
         {
-            var host = new Client();
-           
-           var movieTagModelList = CoreClient.GetDouBanMovieAllTags(DOUBAN_MOVIE_TAGS_URL);
-            //分类信息持久化
-            foreach (var model in movieTagModelList)
+          long tagCount=ProcessModel.GetTagCount();
+          if(tagCount<1)
             {
-                ProcessModel.ReplaceOrCreateTag(model);
-            }
+            var movieTagModelList = CoreClient.GetDouBanMovieAllTags(DOUBAN_MOVIE_TAGS_URL);
+                        //分类信息持久化
+                        foreach (var model in movieTagModelList)
+                        {
+                            model.Url=DOUBAN_MOVIE_DOMAIN_URL+model.Url;
+                            model.CurrentCrawlUrl=model.Url;
+                            ProcessModel.ReplaceOrCreateTag(model);
+                        }
+            }           
 
             for (int i = 0; i < 1; i++)
             {
@@ -53,8 +49,9 @@ namespace Crawler.Host
         public static void GetTagMovie(Object o) {
 
           var tagModel=ProcessModel.GetUnCrawlTag();
-            var nextPageUrl = tagModel.Url;
-            var host = new Client();
+
+            var nextPageUrl = tagModel.CurrentCrawlUrl;
+          
             int selectIndex = 0;
             bool errorTag = false;
             while (nextPageUrl != null && nextPageUrl.Length > 0)
@@ -64,10 +61,10 @@ namespace Crawler.Host
                 {
                     tagModel.CurrentCrawlUrl = nextPageUrl;
                     ProcessModel.ReplaceOrCreateTag(tagModel);
+                    selectIndex=0;
                 }
                 try
                 {
-<<<<<<< Updated upstream
                     Console.WriteLine($"当前请求地址：{nextPageUrl}");
                     var introList = CoreClient.GetMovieIntroList(tagModel.TagName, nextPageUrl, out nextPageUrl);
                     if (introList != null && introList.Count > 0)
@@ -78,10 +75,7 @@ namespace Crawler.Host
                             ProcessModel.SaveMovieInfo(introModel);
                         }
                     }
-=======
-                    var list = host.GetMovieInfo(nextPageUrl, out nextPageUrl);
-                     infoList.AddRange(list);
->>>>>>> Stashed changes
+
                 }
                 catch (Exception e)
                 {
@@ -95,15 +89,17 @@ namespace Crawler.Host
                 }               
                 if (!errorTag&&nextPageUrl == null|| nextPageUrl.Length<1)
                 {
-
                     tagModel.CrawlDone = true;                                       
                     ProcessModel.ReplaceOrCreateTag(tagModel);
+                    tagModel=ProcessModel.GetUnCrawlTag();
+                    nextPageUrl = tagModel.CurrentCrawlUrl;
                 }              
              
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
             }
 
         }
+        
         #region Congfiguration
         private static void Configuration()
         {

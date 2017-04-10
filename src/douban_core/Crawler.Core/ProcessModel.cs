@@ -39,10 +39,13 @@ namespace Crawler.Core
             //    }
             //}
         }
+        public static long GetTagCount(){
+                long count = MongoClient.Count<MovieTagModel>(MONGODB_COLLECTION_TAGS,t=>true);
+                return count;
+        }
         public static MovieTagModel GetUnCrawlTag()
         {
             MovieTagModel model = null;
-
             lock (TagGetLocker)
             {
 

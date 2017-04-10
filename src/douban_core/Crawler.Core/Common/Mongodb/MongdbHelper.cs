@@ -37,6 +37,11 @@ namespace Crawler.Core.Common.Mongodb
             var collection = GetCollection<T>(collectionName);
             collection.InsertOne(model);
         }
+         public long Count<T>(string collectionName,Expression<Func<T, bool>> filter)
+        {
+            var collection = GetCollection<T>(collectionName);
+           return collection.Count(filter);
+        }
         public void ReplaceOne<T>(string collectionName, Expression<Func<T, bool>> filter, T model)
         {
             var collection = GetCollection<T>(collectionName);

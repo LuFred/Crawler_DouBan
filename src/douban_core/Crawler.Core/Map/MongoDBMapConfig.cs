@@ -12,7 +12,7 @@ namespace Crawler.Core.Map
             BsonClassMap.RegisterClassMap<MovieTagModel>(cm =>
             {
                 cm.MapMember(c => c.TagName).SetElementName("name");
-                cm.MapMember(c => c.Url).SetElementName("type");
+                cm.MapMember(c => c.Url).SetElementName("tag_url");
                 cm.MapMember(c => c.IsCrawling).SetElementName("is_crawling");
                 cm.MapMember(c => c.CrawlDone).SetElementName("crawl_done");
                 cm.MapMember(c => c.CurrentCrawlUrl).SetElementName("current_crawl_url");

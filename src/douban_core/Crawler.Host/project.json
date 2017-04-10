@@ -10,14 +10,8 @@
       "type": "platform",
       "version": "1.1.0"
     },
-<<<<<<< Updated upstream
     "NETStandard.Library": "1.6.1",
-=======
-    "Crawler.Core": {
-       "target": "project"
 
-    },
->>>>>>> Stashed changes
     "RdKafka": "0.9.2-ci-189",
     "System.Text.Encoding.CodePages": "4.3.0",
     "MongoDB.Driver.Core": "2.3.0",
