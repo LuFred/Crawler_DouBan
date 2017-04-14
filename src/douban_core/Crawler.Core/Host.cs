@@ -80,7 +80,7 @@ namespace Crawler.Core
                 throw new HttpRequestException($"httpStatusCode:{httpResponseMessage.StatusCode}");
             }
             getCount += 1;
-            Console.WriteLine($"璇锋眰鎬绘暟{getCount}");
+            Console.WriteLine($"请求总次数{getCount}");
            return httpResponseMessage.Content.ReadAsStringAsync().Result;
         }
 

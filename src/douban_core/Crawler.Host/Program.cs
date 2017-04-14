@@ -21,8 +21,8 @@ namespace Crawler.Host
         {
 
             Configuration();
-            start();
-            //test();
+            //start();
+            test();
             Console.ReadLine();
         }
 
@@ -118,7 +118,7 @@ namespace Crawler.Host
                 config = new HttpClientHandler
                 {
                     UseProxy = true,
-                    Proxy = new CProxy("27.159.126.93", 8118)
+                    Proxy = new CProxy("110.78.161.106", 8080)
                 };
             }
 
